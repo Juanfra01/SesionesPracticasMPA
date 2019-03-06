@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1551469325 source:e:\documentos\programacion c++\c++2019\ejercicios\sesionespracticasmpa\sesionpractica2\practica2.cpp
+	<iostream>
+	<stdlib.h>
+	<time.h>
+
