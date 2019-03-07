@@ -6,23 +6,30 @@
 using namespace std;
 
 int pedirDatos();
-void sumarDigitos(int);
-//int *convertirIntToArray(int);
+//void sumarDigitos(int);
+int sumarDigitosRecursiva(int);
+
 
 int main()
 {
-    int num;
+    int num, resultado=0;
     num = pedirDatos();
-    sumarDigitos(num);
+    cout<<"Traza"<<endl;
+   // sumarDigitos(num);
 
 
+    if(num<0){
+        cout<<"1>sumadigitos<"<<num<<">"<<endl;
+        cout<<"\nEl resultado es: -1"<<endl;
+    }else{
+        resultado = sumarDigitosRecursiva(num);
+        cout<<"\nEl resultado es: "<<resultado<<endl;
+    }
 
    //vec = convertirIntToArray();
 
   //  cout<<"\nEl numero introudcido es:"<<num<<endl;
  //   cout<<"La suma del numero es:"<<s;
-
-
 
     return 0;
 }
@@ -38,6 +45,17 @@ int pedirDatos(){
     return numero;
 }
 
+int sumarDigitosRecursiva(int num){
+    int i=1;
+    if(num == 0){
+        return 0;
+    }else{
+        cout<<i<<">sumadigitos<"<<num<<">"<<endl;
+        return  sumarDigitosRecursiva(num/10) + num%10;
+    }
+}
+
+/*
 void sumarDigitos(int num){
     int r,s,i;
     s = 0;
@@ -61,3 +79,4 @@ void sumarDigitos(int num){
     }
 
 }
+*/
