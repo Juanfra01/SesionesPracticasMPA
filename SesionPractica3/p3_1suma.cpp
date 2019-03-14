@@ -26,11 +26,6 @@ int main()
         cout<<"\nEl resultado es: "<<resultado<<endl;
     }
 
-   //vec = convertirIntToArray();
-
-  //  cout<<"\nEl numero introudcido es:"<<num<<endl;
- //   cout<<"La suma del numero es:"<<s;
-
     return 0;
 }
 
