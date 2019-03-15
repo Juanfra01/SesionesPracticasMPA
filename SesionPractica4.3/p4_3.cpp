@@ -1,29 +1,19 @@
+/* Juan Francisco Torres Martínez - alu80
+Alejandro Gallego López - alu37
+Santiago Moltó Martínez - alu55 */
 #include <iostream>
 #include <stack>
 
 using namespace std;
 
-int pedirDatos(string);
-void imprimir(string,int);
-int programa1(int,int);
 
-int main()
-{
+int programa3(int a,int b){
     stack <int> pila;
-    int a = 0;
-    int b = 0;
     int a0,b0;
-
-    int sol = 0;
-
-    cout << "Introduce valores de a:";
-    cin >> a;
-    cout << "\nIntroduce valores de b:"<<endl;
-    cin >> b;
     a0 = a;
     b0 = b;
 
-    while(a0 >= 3){
+     while(a0 >= 3){
         pila.push(+a0);
         a0 /= 3;
         b0 -= 2;
@@ -36,5 +26,20 @@ int main()
         pila.pop();
     }
 
-    cout << "\nResultado: " << a0 << endl;
+    return a0;
+}
+
+int main()
+{
+
+    int a = 0;
+    int b = 0;
+
+    cout << "Introduce valores de a:";
+    cin >> a;
+    cout << "\nIntroduce valores de b:";
+    cin >> b;
+
+
+    cout << "\nResultado: " << programa3(a,b) << endl;
 }
