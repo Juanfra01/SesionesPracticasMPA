@@ -1,6 +1,3 @@
-/* Juan Francisco Torres Martínez - alu80
-Alejandro Gallego López - alu37
-Santiago Moltó Martínez - alu55 */
 #include <iostream>
 #include <stack>
 
