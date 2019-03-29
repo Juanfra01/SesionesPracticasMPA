@@ -1,3 +1,6 @@
+//Juan Francisco Torres Martínez - alu80
+//Santiago Moltó Martínez - alu55
+//Francesc Baeza Terol - alu12
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
@@ -84,9 +87,11 @@ void printVector(int *vec, int tamanyo, string nombre){
  //FUNCION DIVIDE Y VENCERAS(QUICKSORT)
 int *quicksort(int *vec, int izq, int der){
     int pivote;
-    int i,d,p;
+    int i,d,p,j=1;
 
     p = seleccionar_pivote(vec,izq,der);// posición central del array
+    cout<<j<<") pivote "<<p<<endl;
+    j++;
     if(p >0){
         pivote = vec[p];
         i = izq;
@@ -117,15 +122,16 @@ int *quicksort(int *vec, int izq, int der){
 //Función seleccionar pivote
 int seleccionar_pivote(int *vec,int first, int last){
     int central;
-    if((first+last)%2 == 0){
-        central = ((first + last) /2)+1;
-    //    cout<<"\npivote par: "<<central<<endl;
-        return central;
-    }else{
-        central = (first + last)/2;
-    //    cout<<"\npivote impar: "<<central<<endl;
-        return central;
-    }
+
+    central=(first + last)/2;
+     if((vec[first] > vec[central] &&  vec[first] < vec[last]) || (vec[first] < vec[central] && vec[first] > vec[last])){
+            return first;
+        }else if((vec[central] > vec[first] && vec[central] < vec[last]) || (vec[central] < vec[first] && vec[central] > vec[last])){
+            return central;
+        }else if((vec[last] > vec[first] && vec[last] < vec[central]) || (vec[last] < vec[first] && vec[last] > vec[central])){
+            return last;
+        }
+        return 0;
  }
 
 //Funcion intercambiar valores del vector
