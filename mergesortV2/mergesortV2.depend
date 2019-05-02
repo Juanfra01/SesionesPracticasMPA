@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1554420216 source:e:\documentos\programacion c++\c++2019\ejercicios\sesionespracticasmpa\mergesortv2\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<string.h>
+

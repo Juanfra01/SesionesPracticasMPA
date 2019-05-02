@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1556807709 source:e:\documentos\programacion c++\c++2019\ejercicios\sesionespracticasmpa\sesionpractica7.1\p7_1.cpp
+	<iostream>
+	<stdio.h>
+	<stdlib.h>
+
