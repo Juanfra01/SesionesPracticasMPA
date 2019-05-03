@@ -1,9 +1,8 @@
 /*
 Juan Francisco Torres Martínez - alu80
 Alejandro Gallego López - alu37
-Santiago Moltó Martínez - alu55
 */
-//Juan Francisco Torres Martínez - alu80
+
 #include <iostream>
 #include<stdio.h>
 #include <stdlib.h>
@@ -32,16 +31,7 @@ int main()
     totalObj = numeroTotalObjetos();
     pObj = inElementos(totalObj,peso);
     vObj = inElementos(totalObj,valor);
-
-    //salidas de prueba
-   /* cout<<"\nPeso Maximo de la mochila: "<<pesoMax<<endl;
-    cout<<"El numero total de objetos es: "<<totalObj<<endl;
-    printVector(pObj,totalObj);
-    printVector(vObj,totalObj);*/
-
-
     vMax = mochila(pesoMax,pObj,vObj,totalObj);
-
     cout<<"\nValor maximo que puede llevar: "<<vMax<<endl;
 
     delete[]pObj;

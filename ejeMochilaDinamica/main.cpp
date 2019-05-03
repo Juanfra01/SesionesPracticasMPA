@@ -1,39 +1,57 @@
-/* A Naive recursive implementation of 0-1 Knapsack problem */
-#include<stdio.h>
+#include <iostream>
+using namespace std;
 
-// A utility function that returns maximum of two integers
-int max(int a, int b) { return (a > b)? a : b; }
-
-// Returns the maximum value that can be put in a knapsack of capacity W
-int knapSack(int W, int wt[], int val[], int n)
+int knapsack(int W, int wt[], int b[], int n)
 {
-   // Base Case
-   if (n == 0 || W == 0)
-       return 0;
+	// tabela que será preenchida
+	int V[n + 1][W + 1];
 
-   // If weight of the nth item is more than Knapsack capacity W, then
-   // this item cannot be included in the optimal solution
-   if (wt[n-1] > W)
-       return knapSack(W, wt, val, n-1);
+	// inicializando a primeira linha e primeira coluna com 0
+	for(int w = 0; w <= W; w++)
+		V[0][w] = 0;
+	for(int i = 1; i <= n; i++)
+		V[i][0] = 0;
 
-   // Return the maximum of two cases:
-   // (1) nth item included
-   // (2) not included
-   else return max( val[n-1] + knapSack(W-wt[n-1], wt, val, n-1),
-                    knapSack(W, wt, val, n-1)
-                  );
+	for(int i = 1; i <= n; i++)
+	{
+		for(int w = 1; w <= W; w++)
+		{
+			// elemento pode fazer parte da solução
+			if(wt[i - 1] <= w)
+			{
+				// max...
+				if((b[i - 1] + V[i - 1][w - wt[i - 1]]) > V[i - 1][w])
+					V[i][w] = b[i - 1] + V[i - 1][w - wt[i - 1]];
+				else
+					V[i][w] = V[i - 1][w];
+			}
+			else
+				V[i][w] = V[i - 1][w]; // wi > w
+		}
+	}
+
+	// retorna o valor máximo colocado na mochila
+	return V[n][W];
 }
 
-// Driver program to test above function
-int main()
+int main(int argc, char *argv[])
 {
-    int val[] = {40, 18, 24, 16};
-    int wt[] = {8, 3, 6, 2};
+	// capacidade máxima da mochila: W
+	int W = 15;
 
-    int  W = 15;
-    //int n = sizeof(val)/sizeof(val[0]);
-    int n = 4;
+	// número de elementos
+	int n = 4;
 
-    printf("%d", knapSack(W, wt, val, n));
-    return 0;
+	// vetor com os valores (benefício) de cada elemento
+	int b[] = {40,18,24,16};
+
+	// vetor com os pesos de cada elemento
+	int wt[] = {8,3,6,2};
+
+	// obtém o máximo valor que pode ser colocado na mochila
+	int max_valor = knapsack(W, wt, b, n);
+
+	cout << "Valor maximo: " << max_valor << endl;
+
+	return 0;
 }
