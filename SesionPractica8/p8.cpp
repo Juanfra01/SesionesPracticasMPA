@@ -20,7 +20,7 @@ int main()
 {
     double *pesos,*valores,*x,*xopt;
     int n,k;
-    double M = 10.0;
+    double M = 12.0;
     double vopt;
 
     vopt = negativeINF;
@@ -123,12 +123,18 @@ void maleta(int n, double m, double *p, double *v, double *x, int k, double *xop
     int j = 1;
     double peso = 0;
 
-    if (k <= n)
+    if (k <= n)//AQUÍ PUEDE ESTAR UN MIENTRAS
     {
+        //IMPRIME EL ARBOL
         for (i = 0; i <= 1; i++)
         {
             x[k] = i;
-            peso = calcularSuma(x, p, k);
+            cout<<"Vector x:";
+            for(int c=1;c<=k;c++){
+                cout<<" "<<x[c];
+            }
+            cout<<endl;
+            peso = calcularSuma(x, p, k);// SI ES FACTIBLE
             if (peso <= m)
             {
                 if (k == n)
@@ -166,7 +172,6 @@ double calcularSuma(double *x, double *v, int k)
         }
         i++;
     }
-
     return suma;
 }
 
