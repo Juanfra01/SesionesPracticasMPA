@@ -2,7 +2,7 @@
 
 using namespace std;
 
-#define N 8
+#define N 5
 
 int **crearLaberinto(int);
 void imprimirLaberinto(int**);
@@ -20,7 +20,7 @@ int main()
     laberinto = crearLaberinto(N);
     imprimirLaberinto(laberinto);
 
-    funcionLaberinto(laberinto,2,2,3,3);
+    funcionLaberinto(laberinto,0,0,2,2);
 
     cout<<endl;
     imprimirLaberinto(laberinto);
