@@ -1,4 +1,5 @@
 # depslib dependency file v1.0
-1558807285 source:e:\documentos\programacion c++\c++2019\ejercicios\sesionespracticasmpa\prácticafinal\ncaminos.cpp
+1559207549 source:e:\documentos\programacion c++\c++2019\ejercicios\sesionespracticasmpa\prácticafinal\ncaminos.cpp
 	<iostream>
+	<stack>
 

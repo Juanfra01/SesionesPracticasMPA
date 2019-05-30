@@ -1,12 +1,12 @@
 #include <iostream>
-
+#include <stack>
 using namespace std;
 
 #define N 5
 
 int **crearLaberinto(int);
 void imprimirLaberinto(int**);
-void funcionLaberinto(int**,int,int,int,int);
+int funcionLaberinto(int**,int,int,int,int);
 void siguienteCandidato(int*, int*, int*, int, int, int);
 bool factible(int**,int,int,int,int);
 
@@ -16,13 +16,17 @@ int main()
 {
     int **laberinto;
   //  int n=5;
+    int contador = 0;
 
     laberinto = crearLaberinto(N);
     imprimirLaberinto(laberinto);
 
-    funcionLaberinto(laberinto,0,0,2,2);
+    // funcionLaberinto(laberinto,0,0,2,2);
+    contador += funcionLaberinto(laberinto,0,0,2,1);
 
     cout<<endl;
+    cout<<"Total ncaminos: "<<contador<<endl;
+
     imprimirLaberinto(laberinto);
 
     for(int i=0;i<N;i++)delete[] laberinto[i];
@@ -58,12 +62,15 @@ void imprimirLaberinto(int **maze)
 }
 
 //FUNCIÓN LABERINTO
-void funcionLaberinto(int **maze, int xentrada, int yentrada, int xsalida, int ysalida)
+int funcionLaberinto(int **maze, int xentrada, int yentrada, int xsalida, int ysalida)
 {
     int k,xsig,ysig;
     int *X,*Y,*M;
-    bool encontrada = false;
+    int total =0;
     int xk, yk;
+    stack <int>pilax;//declaramos la pilax
+    stack <int>pilay;//declaramos la pilay
+
 
     X = new int[N*N];
     Y = new int[N*N];
@@ -75,67 +82,56 @@ void funcionLaberinto(int **maze, int xentrada, int yentrada, int xsalida, int y
     xk = X[k];
     yk = Y[k];
 
-    cout<<"xk: "<<xk<<" yk: "<<yk<<endl;
-
     maze[xk][yk] = 1;
+    pilax.push(xentrada);
+    pilay.push(yentrada);
 
-
-    if(xentrada > ysalida){
-        k=0;
-        encontrada = true;
-        cout<<"La posicion no se puede Hallar con los movimientos descritos."<<endl;
-    }
-     if(yentrada > ysalida){
-        k=0;
-        encontrada = true;
-        cout<<"La posicion no se puede Hallar con los movimientos descritos."<<endl;
-    }
-
-
-    //salida por pantalla de prueba
-    cout<<"posicion de incio laberinto: "<< maze[xk][xk]<<endl;
 
     M[k] = 0;
-    while(k > 0 && encontrada == false){
+    while(k != 0){
+      //  cout<<"\nk: "<<k<<endl;
+       // cout<<"M[k]: "<<M[k]<<endl;
         if(M[k] < 3){
             M[k] = M[k] + 1;
-            //prueba
-           // cout<<"Vamos a ver si entra "<<M[k]<<endl;
             siguienteCandidato(X,Y,M,k,xsalida,ysalida);
             xsig = X[k];
             ysig = Y[k];
-
-            cout<<"X: "<<xsig<<", Y: "<<ysig<<", M:"<<M[k]<<endl;
             //si es factible
             if( factible(maze, xsig, ysig, xsalida, ysalida) == true){
                 X[k+1] = xsig;
                 Y[k+1] = ysig;
-                if(X[k+1] == xsalida && Y[k+1] == ysalida){
-                    cout<<"Se ha encontrado la salida"<<endl;
-                    maze[xsalida][ysalida] = 1;
-                    encontrada = true;
-                }else{
-                    k = k + 1;//siguente nivel
+                if(X[k+1] != xsalida || Y[k+1] != ysalida){//SI NO COINCIDEN LAS COORDENADAS SIGUIENTES CON LAS FINALES ENTRA EN EL IF
+                    //APILAMOS LAS COORDENADAS
+                    pilax.push(xsig);
+                    pilay.push(ysig);
+                    cout<<"\n("<<X[k]<<","<<Y[k]<<")"<<endl;
+                    k+=1;
                     xk = X[k];
                     yk = Y[k];
                     maze[xk][yk] = 1;
                     M[k] = 0;
-                    //cout<<"esle ultimo"<<endl;
+                }else{
+                    cout<<"\n("<<X[k]<<","<<Y[k]<<") ENCONTRADA"<<endl;
+                    maze[xsalida][ysalida] = 1;
+                    total +=1;//contador de caminos posibles
+                    //SE DESAPILA
+                    X[k] = pilax.top();
+                    pilax.pop();
+                    Y[k] = pilay.top();
+                    pilay.pop();
+                    cout<<"Valores sacados de la pila "<<X[k]<<", "<<Y[k]<<endl;
+                    cout<<"Valor en salida de k: "<<k<<endl<<endl;
                 }//fin
             }//fin factible
         }else{
             xk = X[k];
             yk = Y[k];
-            maze[xk][yk] = 0;
             M[k] = 0;
             k = k -1;
-        }//fin condicion Mk > 4
+        }//fin
     }//fin while
 
-    for(int r = 1; r<N; r++){
-        cout<<"El valor de X["<<r<<"]: "<<X[r]<<endl;
-        cout<<"El valor de Y["<<r<<"]: "<<Y[r]<<endl;
-    }
+    return total;
 }
 
 //FUNCIÓN SIGUIENTE CANDIDATO
@@ -143,17 +139,17 @@ void siguienteCandidato(int *X, int *Y, int *M, int k, int xsalida, int ysalida)
 {
     if(M[k]==1){
         Y[k] = Y[k] + 1;
-        cout<<"derecha "<<endl;
-        cout<<"Valor de Y[k] "<<Y[k]<<" ||Valor de ysalida]: "<<ysalida<<endl;
+        cout<<"right  ";
     }
     if(M[k]==2){
         Y[k] = Y[k] - 1;
         X[k] = X[k] + 1;
-        cout<<"abajo"<<endl;
+        cout<<"down ";
     }
     if(M[k]==3){
+        X[k] = X[k] + 1;
         Y[k] = Y[k] + 1;
-        cout<<"diagonal"<<endl;
+        cout<<"diagonal ";
     }
 }
 
@@ -166,14 +162,11 @@ bool factible(int **maze, int xsig, int ysig, int xsalida, int ysalida){
 
     }else{
         if( xsig > xsalida ) {
-            cout<<"\nEntra en funcion factible  de Xsig devuelve false!!!!! "<<endl;
             return false;
         }else if(ysig > ysalida ){
-			  cout<<"\nEntra en funcion factible de ysig devuelve false!!!!! "<<endl;
             return false;
 		}
 		else{
-            cout<<"\nEntra en funcion factible devuelve true!!!!! "<<endl;
             return true;
         }
     }
