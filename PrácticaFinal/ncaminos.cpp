@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stack>
+
 using namespace std;
 
 #define N 5

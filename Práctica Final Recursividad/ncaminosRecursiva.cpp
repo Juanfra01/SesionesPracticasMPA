@@ -1,21 +1,19 @@
-#include "funciones.h"
+
 #include <iostream>
 #include <stdlib.h>
+#include <string>
+#include "funciones.h"
 using namespace std;
-
-
-
-
 
 int main()
 {
-    int **laberinto;
-    int *X,*Y,*M,*sol;
+
+    int *X,*Y,*M;
     int k,xentrada,yentrada,xsalida,ysalida,F,C;
-    string valor1  = "entrada X";
-    string valor2  = "entrada Y";
-    string valor3  = "salida X";
-    string valor4  = "salida Y";
+    string valor1  = "X de entrada";
+    string valor2  = "Y de entrada";
+    string valor3  = "X de salida";
+    string valor4  = "Y de salida";
   //  string fila    = " fila N";
   //  string columna = " columna M";
 
@@ -26,64 +24,61 @@ int main()
     X = new int[F*C];
     Y = new int[F*C];
     M = new int[F*C];
-    sol = new int[F*C];
+
 
     //COORDENADAS DE ENTRADA
-    do{
-        cout<<"\nEl valor a introducir debe de estar entre 0 y "<<F<<endl;
-        xentrada = introducirValor(valor1);
-    }while(xentrada > F);
-    do{
-        cout<<"\nEl valor a introducir debe de estar entre 0 y "<<C<<endl;
-        yentrada = introducirValor(valor2);
-    }while(yentrada > C);
+    xentrada = introducirValor(valor1);
+    while(xentrada<1 || xentrada > F) {
+		cout<<"\nEl valor a introducir debe de estar entre 1 y "<<F<<endl;
+		xentrada = introducirValor(valor1);
+	}
 
-    //COORDENADAS DE SALIDA
-    do{
-        cout<<"\nEl valor a introducir debe de estar entre "<<xentrada<<" y "<<F<<endl;
-        xsalida = introducirValor(valor3);
-        if(xsalida > F){
-            xsalida = 0;
-        }
-    }while(xentrada >= xsalida);
+    yentrada = introducirValor(valor2);
+    while(yentrada<1 || yentrada > C) {
+		cout<<"\nEl valor a introducir debe de estar entre 1 y "<<C<<endl;
+		yentrada = introducirValor(valor2);
+	}
 
-     do{
-        cout<<"\nEl valor a introducir debe de estar entre "<<yentrada<<" y "<<C<<endl;
-        ysalida = introducirValor(valor4);
-        if(ysalida > C){
-            ysalida = 0;
-        }
-    }while(yentrada >= ysalida);
+	//COORDENADAS DE SALIDA
+	xsalida = introducirValor(valor3);
+	while(xsalida<1 || xsalida>F) {
+		cout<<"\nEl valor a introducir debe de estar entre 1 y "<<F<<endl;
+		xsalida = introducirValor(valor3);
+	}
+	ysalida = introducirValor(valor4);
+	while(ysalida<1 || xsalida>C) {
+		cout<<"\nEl valor a introducir debe de estar entre 1 y "<<C<<endl;
+		ysalida = introducirValor(valor4);
+	}
+
 
     cout<<"Punto de entrada: ("<<xentrada<<","<<yentrada<<")"<<endl;
     cout<<"Punto de salida: ("<<xsalida<<","<<ysalida<<")"<<endl;
+
+	xentrada--;
+	yentrada--;
+	xsalida--;
+	ysalida--;
 
     k=1;
     X[k] = xentrada;
     Y[k] = yentrada;
 
-    laberinto = crearLaberinto(F,C);
-    pintarLaberinto(laberinto,F,C);
-  //  imprimirLaberinto(laberinto,F,C);
+     int total = 0;
+    //cuentaCaminosRecursivo(X,Y,M,xsalida,ysalida,k,total);
 
-    for(int r=0;r<F*C;r++){
-        sol[r]=0;
-    }
-
-    int total = 0;
-    funcionLaberinto(laberinto,X,Y,M,xentrada,yentrada,xsalida,ysalida,k,sol,F,C);
-
+	total = cuentaCaminosIterativo(xentrada, yentrada, xsalida, ysalida, F, C);
 
     cout<<endl;
     cout<<"El total de caminos encontrados es de: "<<total<<endl;
     cout<<endl;
-    imprimirLaberinto(laberinto,F,C);
+
 
     //LIBERAR MEMORIA
-    for(int i=0;i<F;i++)delete[] laberinto[i];
+
     delete[] X;
     delete[] Y;
     delete[] M;
-    delete[] sol;
+
     return 0;
 }
