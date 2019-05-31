@@ -1,10 +1,11 @@
 # depslib dependency file v1.0
-1559240616 source:e:\documentos\programacion c++\c++2019\ejercicios\sesionespracticasmpa\práctica final recursividad\ncaminosrecursiva.cpp
+1559295611 source:e:\documentos\programacion c++\c++2019\ejercicios\sesionespracticasmpa\práctica final recursividad\ncaminosrecursiva.cpp
 	<iostream>
 	<stdlib.h>
 	<string>
+	<iostream>
+	<stdlib.h>
 	"funciones.h"
 
-1559240139 e:\documentos\programacion c++\c++2019\ejercicios\sesionespracticasmpa\práctica final recursividad\funciones.h
-	<string>
+1559295611 e:\documentos\programacion c++\c++2019\ejercicios\sesionespracticasmpa\práctica final recursividad\funciones.h
 

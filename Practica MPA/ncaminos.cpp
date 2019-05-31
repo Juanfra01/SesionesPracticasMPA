@@ -7,9 +7,6 @@ using namespace std;
 #define MUEVE_ABAJO         2
 #define MUEVE_DERECHA_ABAJO 3
 
-//á: 160 é: 130 í: 161 ó: 162 ú: 163 Á: 181 É: 144 Í: 214 Ó: 224 Ú: 23 ñ: 164 Ñ: 165
-
-
 int introducirTamanyo(string);
 int introducirTamanyoColumna();
 int introducirValor(string);
@@ -19,16 +16,20 @@ int cuentaCaminosIterativo(int, int, int, int, int, int);
 void siguienteCandidato(int*, int*, int*, int);
 bool factible(int,int,int,int);
 
-
-
 // FUNCIÓN PRINCIPAL
 int main()
 {
     setlocale(LC_ALL,"");
 
     int *X,*Y,*M;
-    int k,xentrada,yentrada,xsalida,ysalida,F,C;
-    int opcion=0,total;
+    int k;
+    int xentrada = 0;
+    int yentrada = 0;
+    int xsalida  = 0;
+    int ysalida  = 0;
+    int F = 0;
+    int C = 0;
+    int opcion=0,total = 0;
     string valor1  = "X de entrada";
     string valor2  = "Y de entrada";
     string valor3  = "X de salida";
@@ -36,25 +37,35 @@ int main()
     string fila    = "filas";
     string columna = "columnas";
 
-
-
-
-
+    //MENU//
     do
     {
+        cout<<" --------------"<<endl;
+        cout<<" #### MENU ####"<<endl;
+        cout<<" --------------"<<endl;
+        cout<<" Plano: F x C"<<endl;
+        cout<<" Origen: (X,Y)"<<endl;
+        cout<<" Destino: (X,Y)"<<endl;
+
         cout<<"\n 1. Tamaño del plano.";
         cout<<"\n 2. Punto origen y destino.";
         cout<<"\n 3. Algoritmo recursivo.";
         cout<<"\n 4. Algoritmo iterativo.";
         cout<<"\n 5. Salir.";
-        cout<<"\n\nIntroduzca una opción."<<endl;
+        cout<<"\n\nIntroduzca una opción de las mencionadas (1 - 5)."<<endl;
         cin>>opcion;
 
         switch(opcion)
         {
             case 1:
+
                     F = introducirTamanyo(fila);
                     C = introducirTamanyo(columna);
+                    if(F==0 && C==0){
+                        cout<<"\n\n¡¡¡¡¡¡ATENCIÓN!!!!!!"<<endl;
+                        cout<<"Introduzca una tamaño distinto de 0, por lo menos en uno de  los ejes"<<endl<<endl;
+                        break;
+                    }
 
                     X = new int[F*C];
                     Y = new int[F*C];
@@ -89,9 +100,12 @@ int main()
                     cout<<"Punto de entrada: ("<<xentrada<<","<<yentrada<<")"<<endl;
                     cout<<"Punto de salida: ("<<xsalida<<","<<ysalida<<")"<<endl;
 
-                    total = 0;//contador de caminos
+
                 break;
             case 3:
+                    if(F==0 && C==0){
+                        break;
+                    }
                     xentrada--;
                     yentrada--;
                     xsalida--;
@@ -104,21 +118,26 @@ int main()
                     cout<<endl;
                     cout<<"El total de caminos encontrados es de: "<<total<<endl;
                     cout<<endl;
+                    total = 0;//contador de caminos
                 break;
             case 4:
+                    if(F==0 && C==0){
+                        break;
+                    }
                     total = cuentaCaminosIterativo(xentrada, yentrada, xsalida, ysalida, F, C);
                     cout<<endl;
                     cout<<"El total de caminos encontrados es de: "<<total<<endl;
                     cout<<endl;
+                    total = 0;//contador de caminos
                 break;
             case 5:
                     opcion =5;
                 break;
         }//FIN SWITCH
-
-
-
     }while(opcion != 5);
+
+    system("cls");
+    cout<<"\nHASTA LA PRÓXIMA"<<endl;
 
     //LIBERAR MEMORIA
     delete[] X;
