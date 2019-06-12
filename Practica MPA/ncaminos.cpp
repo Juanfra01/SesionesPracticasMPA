@@ -116,7 +116,7 @@ int main()
                     Y[k] = yentrada;
                     cuentaCaminosRecursivo(X,Y,M,xsalida,ysalida,k,total);
                     cout<<endl;
-                    cout<<"El total de caminos encontrados es de: "<<total<<endl;
+                    cout<<"El total de caminos encontrados mediante la función recursiva es de: "<<total<<endl;
                     cout<<endl;
                     total = 0;//contador de caminos
                 break;
@@ -126,7 +126,7 @@ int main()
                     }
                     total = cuentaCaminosIterativo(xentrada, yentrada, xsalida, ysalida, F, C);
                     cout<<endl;
-                    cout<<"El total de caminos encontrados es de: "<<total<<endl;
+                    cout<<"El total de caminos encontrados mediante la función iterariva es de: "<<total<<endl;
                     cout<<endl;
                     total = 0;//contador de caminos
                 break;
@@ -136,7 +136,7 @@ int main()
         }//FIN SWITCH
     }while(opcion != 5);
 
-    system("cls");
+    system("cls");//Vacía el contenido de la consola
     cout<<"\nHASTA LA PRÓXIMA"<<endl;
 
     //LIBERAR MEMORIA
@@ -178,10 +178,8 @@ void cuentaCaminosRecursivo(int *X, int *Y,int *M, int xsalida, int ysalida, int
         if(factible(xsig,ysig,xsalida,ysalida)){
             X[k+1] = xsig;
             Y[k+1] = ysig;
-            //cout<<"Nivel k: "<<k<<" ("<<X[k+1]<<","<<Y[k+1]<<")"<<endl;
             if(X[k+1] == xsalida && Y[k+1] == ysalida){
                 total++;
-                //cout<<"Se ha encontrado la salida numero: "<<total<<endl;
             }else{
               cuentaCaminosRecursivo(X,Y,M,xsalida,ysalida,k+1,total);
             }
