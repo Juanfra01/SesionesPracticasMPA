@@ -1,3 +1,8 @@
+/*
+Juan Francisco Torres Martínez
+Alejandro Gallego López
+*/
+
 #include <iostream>
 #include <stdlib.h>
 #include <locale.h>//para los acentos
@@ -21,7 +26,7 @@ int main()
 {
     setlocale(LC_ALL,"");
 
-    int *X,*Y,*M;
+    int *X=NULL,*Y=NULL,*M=NULL;
     int k;
     int xentrada = 0;
     int yentrada = 0;
@@ -40,12 +45,14 @@ int main()
     //MENU//
     do
     {
-        cout<<" --------------"<<endl;
+        cout<<"\n --------------"<<endl;
         cout<<" #### MENU ####"<<endl;
         cout<<" --------------"<<endl;
-        cout<<" Plano: F x C"<<endl;
-        cout<<" Origen: (X,Y)"<<endl;
-        cout<<" Destino: (X,Y)"<<endl;
+
+		cout<<" Plano: "<<F<<" x "<<C<<endl;
+
+        cout<<" Origen: ("<<xentrada<<","<<yentrada<<")"<<endl;
+        cout<<" Destino: ("<<xsalida<<","<<ysalida<<")"<<endl;
 
         cout<<"\n 1. Tamaño del plano.";
         cout<<"\n 2. Punto origen y destino.";
@@ -131,8 +138,10 @@ int main()
                     total = 0;//contador de caminos
                 break;
             case 5:
-                    opcion =5;
+
                 break;
+             default:
+				cout<<"Opción incorrecta"<<endl;
         }//FIN SWITCH
     }while(opcion != 5);
 
@@ -140,9 +149,11 @@ int main()
     cout<<"\nHASTA LA PRÓXIMA"<<endl;
 
     //LIBERAR MEMORIA
-    delete[] X;
-    delete[] Y;
-    delete[] M;
+    if (X!=NULL) {
+		delete[] X;
+		delete[] Y;
+		delete[] M;
+	}
     return 0;
 }
 
